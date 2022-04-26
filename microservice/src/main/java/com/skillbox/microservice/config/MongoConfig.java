@@ -1,26 +1,31 @@
 package com.skillbox.microservice.config;
 
 
+
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+
 
 @Configuration
 public class MongoConfig extends AbstractMongoClientConfiguration {
 
 
     @Override
-    public String getDatabaseName() {
-        return "technical_support_db";
-    }
-    @Override
-    protected boolean autoIndexCreation() {
-        return true;
-    }
-    @Override
-    protected void configureClientSettings(MongoClientSettings.Builder builder) {
-        builder.applyConnectionString(new ConnectionString("mongodb://technical_support:aj@Z|0qLY#lZ@localhost:3309"));
+    protected String getDatabaseName() {
+        return "tech_support";
     }
 
+    @Override
+    public MongoClient mongoClient() {
+        ConnectionString connectionString = new ConnectionString("mongodb://mongodb/tech_support");
+        MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .build();
+
+        return MongoClients.create(mongoClientSettings);
+    }
 }

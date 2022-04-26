@@ -66,6 +66,7 @@ services:
     depends_on:
       - cloud-config
       - mysql_microservice
+      - mongodb
     networks:
       - monitoring
   redis:
@@ -152,13 +153,12 @@ services:
       monitoring:
         aliases:
           - loki
-  technical_support_db:
-    image: mongo:latest
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=technical_support
-      - MONGO_INITDB_ROOT_PASSWORD=aj@Z|0qLY#lZ
+  mongodb:
+    image: mongo:5.0
     ports:
-      - "3309:3309"
+      - "27017:27017"
+    networks:
+      - monitoring
   rabbitmq:
     restart: always
     image: rabbitmq:management

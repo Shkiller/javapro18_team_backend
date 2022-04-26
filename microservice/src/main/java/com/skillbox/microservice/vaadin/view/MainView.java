@@ -1,6 +1,7 @@
 package com.skillbox.microservice.vaadin.view;
 
 import com.skillbox.microservice.entity.Message;
+import com.skillbox.microservice.entity.MongoMessage;
 import com.skillbox.microservice.vaadin.components.MyDialog;
 import com.skillbox.microservice.vaadin.service.SomeService;
 import com.vaadin.flow.component.grid.Grid;
@@ -21,21 +22,21 @@ public class MainView extends HorizontalLayout {
     private final MyDialog myDialog;
     private final SomeService someService;
 
-    private Grid<Message> grid = new Grid<>(Message.class, false);
+    private Grid<MongoMessage> grid = new Grid<>(MongoMessage.class, false);
 
     public MainView(SomeService someServ, MyDialog myDialog) {
         this.someService = someServ;
         this.myDialog = myDialog;
 
-        List<Message> messageList = someService.getAllMessages();
+        List<MongoMessage> messageList = someService.getAllMessages();
 
         grid.setItems(messageList);
-        grid.addColumn(Message::getId).setWidth("50px").setHeader("Номер");
-        grid.addColumn(Message::getClient).setAutoWidth(true).setHeader("Пользователь");
-        grid.addColumn(Message::getMessage).setAutoWidth(true).setHeader("Сообщение");
-        grid.addColumn(Message::getDateOfApplication).setAutoWidth(true).setHeader("Дата");
+        grid.addColumn(MongoMessage::getId).setWidth("50px").setHeader("Номер");
+        grid.addColumn(MongoMessage::getClient).setAutoWidth(true).setHeader("Пользователь");
+        grid.addColumn(MongoMessage::getMessage).setAutoWidth(true).setHeader("Сообщение");
+        grid.addColumn(MongoMessage::getDateOfApplication).setAutoWidth(true).setHeader("Дата");
         grid.addSelectionListener(event -> {
-            Optional<Message> messageOptional = event.getFirstSelectedItem();
+            Optional<MongoMessage> messageOptional = event.getFirstSelectedItem();
             messageOptional.ifPresent(myDialog::setMess);
             myDialog.open();
         });
