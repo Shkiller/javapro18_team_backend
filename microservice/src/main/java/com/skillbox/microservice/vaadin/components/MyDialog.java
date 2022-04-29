@@ -2,7 +2,6 @@ package com.skillbox.microservice.vaadin.components;
 
 import com.mailjet.client.errors.MailjetException;
 import com.skillbox.microservice.entity.Message;
-import com.skillbox.microservice.entity.MongoMessage;
 import com.skillbox.microservice.vaadin.service.SendMailService;
 import com.skillbox.microservice.vaadin.service.SomeService;
 import com.vaadin.flow.component.KeyNotifier;
@@ -28,7 +27,7 @@ public class MyDialog extends Dialog implements KeyNotifier {
     private final SomeService someService;
     private final SendMailService mailService;
     //Сообщение по которому клинкули
-    private MongoMessage mess;
+    private Message mess;
 
     private TextField recipients;
     private TextArea subject;
@@ -111,12 +110,12 @@ public class MyDialog extends Dialog implements KeyNotifier {
         }
     }
 
-    private void delete(MongoMessage mess) {
+    private void delete(Message mess) {
         someService.deleteMessage(mess);
         this.close();
     }
 
-    private void send(MongoMessage mess) {
+    private void send(Message mess) {
         String responseMassage = response.getValue();
         if (!responseMassage.isEmpty()) {
             try {
@@ -177,7 +176,7 @@ public class MyDialog extends Dialog implements KeyNotifier {
         isDocked = false;
     }
 
-    public void setMess(MongoMessage message) {
+    public void setMess(Message message) {
         this.mess = message;
 
         recipients.setValue(mess.getClient().getEmail());

@@ -15,21 +15,6 @@ services:
       - SYS_NICE
     networks:
       - monitoring
-  mysql_microservice:
-    image: mysql:latest
-    restart: always
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: aj@Z|0qLY#lZ
-      MYSQL_DATABASE: technical_support
-      MYSQL_USER: user
-      MYSQL_PASSWORD: ~yzLEM9hFKxX
-    ports:
-      - "3308:3306"
-    cap_add:
-      - SYS_NICE
-    networks:
-      - monitoring
   vue_js_container:
     restart: always
     image: nginx:latest
