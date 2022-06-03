@@ -20,7 +20,7 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class Person2Dialog {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private Integer id;
 
